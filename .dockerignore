@@ -1,0 +1,42 @@
+# Dependencies (se instalan dentro del contenedor)
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Build / cache
+dist
+build
+.tmp
+.strapi
+.strapi-updater.json
+.strapi-cloud.json
+*.tsbuildinfo
+.eslintcache
+
+# Git y IDE
+.git
+.gitignore
+.idea
+.vscode
+*.md
+!README.md
+
+# Entorno local (Coolify inyecta variables)
+.env
+.env.*
+!.env.example
+
+# Tests y cobertura
+coverage
+*.test.*
+*.spec.*
+
+# Uploads (se montan como volumen en producción)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
