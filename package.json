@@ -16,14 +16,15 @@
   },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "^7.0.0",
-    "@strapi/plugin-cloud": "5.35.0",
-    "@strapi/plugin-users-permissions": "5.35.0",
-    "@strapi/strapi": "5.35.0",
-    "better-sqlite3": "12.4.1",
-    "mysql2": "^3.16.3",
+    "@strapi/plugin-cloud": "5.36.0",
+    "@strapi/plugin-users-permissions": "5.36.0",
+    "@strapi/strapi": "5.36.0",
+    "mysql2": "3.9.8",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
+    "strapi-csv-import-export": "^0.0.6",
+    "strapi-plugin-img-convert": "^2.2.3",
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
@@ -37,7 +38,7 @@
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "uuid": "1bbd1844-fbf6-46c1-b3df-2c8052ab5cf3",
-    "installId": "5bd9c3c7c51ed21728c9dd925cec7e75fedcff32f43039cc6a3938cc32567621"
+    "uuid": "0923be27-1d41-4945-9690-0cd31bc53f66",
+    "installId": "b61a7f16416407c9783e6aa9ca39b73aa051e01f0c1ba6668d8237fe3038742d"
   }
 }
