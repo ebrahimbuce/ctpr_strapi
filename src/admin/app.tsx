@@ -1,4 +1,6 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
+import favicon from './extensions/favicon.png';
+import logo from './extensions/logo.avif';
 
 export default {
   config: {
@@ -7,26 +9,28 @@ export default {
 
     // 1. Logos y Favicon (Asegúrate de tenerlos en src/admin/extensions/)
     head: {
-      favicon: './extensions/favicon.ico',
+      favicon: favicon,
     },
     auth: {
-      logo: './extensions/logo-login.png', 
+      logo: logo, 
     },
     menu: {
-      logo: './extensions/logo-menu.png',
+      logo: favicon,
     },
 
     // 2. Traducciones y Nombre de la App
     translations: {
       es: {
-        'app.components.LeftMenu.navbrand.title': 'Mi Panel',
-        'app.components.LeftMenu.navbrand.workplace': 'Producción',
-        'Auth.form.welcome.title': 'Bienvenido',
-        'Auth.form.welcome.subtitle': 'Inicia sesión en tu cuenta',
+        'app.components.LeftMenu.navbrand.title': 'CTPR',
+        'app.components.LeftMenu.navbrand.workplace': 'Panel',
+        'Auth.form.welcome.title': 'Compañía de Turismo de Puerto Rico',
+        'Auth.form.welcome.subtitle': 'Inicia sesión en tu cuenta',
       },
       en: {
-        'app.components.LeftMenu.navbrand.title': 'My Dashboard',
-        'app.components.LeftMenu.navbrand.workplace': 'Production',
+        'app.components.LeftMenu.navbrand.title': 'CTPR',
+        'app.components.LeftMenu.navbrand.workplace': 'Dashboard',
+        'Auth.form.welcome.title': 'Compañía de Turismo de Puerto Rico',
+        'Auth.form.welcome.subtitle': 'Log in to your account',
       },
     },
 
@@ -62,7 +66,6 @@ export default {
         shadows: {
           filterShadow: 'rgba(33, 37, 41, 0.1) 0px 2px 4px',
         },
-        borderRadius: '12px', // Tu --radius-field (0.75rem)
       },
       dark: {
         colors: {
@@ -83,7 +86,6 @@ export default {
           neutral150: '#2c3136',  // Bordes
           neutral800: '#f8f9fa',  // Texto claro
         },
-        borderRadius: '12px',
       },
     },
   },

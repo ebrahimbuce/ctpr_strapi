@@ -1,8 +1,10 @@
 .tmp/
-.git/
-.env
-node_modules/
-build/
-dist/
 .cache/
+.git/
+build/
+node_modules/
+data/
 public/uploads/
+.env
+.env.*
+!.env.example

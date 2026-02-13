@@ -1,13 +1,11 @@
-version: '3'
 services:
   strapi:
-    container_name: ctpr-strapi
+    container_name: strapi
     build: .
-    image: ctpr-strapi:latest
+    image: strapi:latest
     restart: unless-stopped
     env_file: .env
     environment:
-      NODE_ENV: production
       DATABASE_CLIENT: ${DATABASE_CLIENT}
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_PORT: ${DATABASE_PORT}
@@ -18,17 +16,19 @@ services:
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       APP_KEYS: ${APP_KEYS}
       API_TOKEN_SALT: ${API_TOKEN_SALT}
-      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
-    ports:
-      - '1337:1337'
     volumes:
       - ./config:/opt/app/config
       - ./src:/opt/app/src
-      - ./public/uploads:/opt/app/public/uploads
+      - ./package.json:/opt/package.json
+      - ./pnpm-lock.yaml:/opt/pnpm-lock.yaml
       - ./.env:/opt/app/.env
+      - ./public/uploads:/opt/app/public/uploads
+    ports:
+      - '1337:1337'
     networks:
-      - strapi-network
+      - strapi
 
 networks:
-  strapi-network:
+  strapi:
+    name: Strapi
     driver: bridge

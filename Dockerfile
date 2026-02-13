@@ -1,50 +1,30 @@
-# Stage 1: Build the application
-FROM node:20-alpine AS build
+# Creating multi-stage build for production
+FROM node:20-alpine as build
+RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 
-# Install dependencies needed for build
-RUN apk add --no-cache python3 make g++ vips-dev
-
+WORKDIR /opt/
+COPY package.json pnpm-lock.yaml ./
+RUN npm install -g node-gyp pnpm
+RUN pnpm config set fetch-retry-maxtimeout 600000 -g && pnpm config set node-linker hoisted && pnpm install --frozen-lockfile
+ENV PATH /opt/node_modules/.bin:$PATH
 WORKDIR /opt/app
-
-# Copy package files
-COPY package.json package-lock.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
 COPY . .
+RUN pnpm run build
 
-# Build the Strapi admin panel
-ENV NODE_ENV=production
-RUN npm run build
-
-# Stage 2: Create the production image
+# Creating final production image
 FROM node:20-alpine
-
-# Install runtime dependencies (vips-dev is needed for sharp image processing)
 RUN apk add --no-cache vips-dev
-
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+WORKDIR /opt/
+COPY --from=build /opt/node_modules ./node_modules
 WORKDIR /opt/app
+COPY --from=build /opt/app ./
+ENV PATH /opt/node_modules/.bin:$PATH
 
-# Set environment to production
-ENV NODE_ENV=production
-
-# Copy dependencies and built assets from build stage
-# Note: In a real production setup, you might want to run install --production again here 
-# instead of copying node_modules to ensure a cleaner state, but copying works for most cases.
-COPY --from=build /opt/app/node_modules ./node_modules
-COPY --from=build /opt/app/dist ./dist
-COPY --from=build /opt/app/public ./public
-COPY --from=build /opt/app/package.json ./package.json
-# COPY --from=build /opt/app/favicon.png ./favicon.png 
-
-# Copy configuration and database folders (essential for runtime config)
-COPY --from=build /opt/app/config ./config
-COPY --from=build /opt/app/database ./database
-
-# Expose the Strapi port
+RUN chown -R node:node /opt/app
+USER node
 EXPOSE 1337
-
-# Start Strapi
 CMD ["npm", "run", "start"]
