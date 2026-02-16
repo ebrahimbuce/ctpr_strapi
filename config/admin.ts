@@ -18,6 +18,10 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => 
   flags: {
     nps: env.bool('FLAG_NPS', true),
     promoteEE: env.bool('FLAG_PROMOTE_EE', true),
+    ...(env('NODE_ENV') === 'production' && {
+      marketplace: false,
+      contentTypeBuilder: false,
+    }),
   },
 });
 

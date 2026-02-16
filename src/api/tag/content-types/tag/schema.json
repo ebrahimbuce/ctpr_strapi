@@ -6,13 +6,13 @@
     "pluralName": "tags",
     "displayName": "Tag"
   },
+  "options": {
+    "draftAndPublish": true
+  },
   "pluginOptions": {
     "i18n": {
       "localized": true
     }
-  },
-  "options": {
-    "draftAndPublish": true
   },
   "attributes": {
     "name": {
